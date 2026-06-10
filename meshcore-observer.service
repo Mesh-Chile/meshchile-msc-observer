@@ -1,0 +1,21 @@
+# MeshChile · Observer MSC — unit de systemd (servicio de sistema).
+# Reemplaza __USER__ por tu usuario y __DIR__ por la ruta de meshcore-packet-capture,
+# o deja que install.sh lo haga. SupplementaryGroups=dialout es necesario para el
+# acceso al puerto serial (ver README, "Gotcha conocido").
+
+[Unit]
+Description=MeshChile observer (MeshCore Companion -> broker nacional MSC)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__USER__
+SupplementaryGroups=dialout
+WorkingDirectory=__DIR__
+ExecStart=__DIR__/.venv/bin/python __DIR__/packet_capture.py
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

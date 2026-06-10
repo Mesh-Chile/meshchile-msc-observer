@@ -1,0 +1,11 @@
+# El programa de captura se clona aparte, no se versiona acá
+meshcore-packet-capture/
+
+# Config local con tu puerto/llave
+.env.local
+*.local
+
+# Python
+.venv/
+__pycache__/
+*.pyc
