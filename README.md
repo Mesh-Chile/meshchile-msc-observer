@@ -40,7 +40,7 @@ No necesitas IP fija ni abrir nada en tu router.
 ## Instalación rápida (con el script)
 
 ```bash
-git clone https://github.com/<tu-org>/meshchile-msc-observer
+git clone https://github.com/Mesh-Chile/meshchile-msc-observer
 cd meshchile-msc-observer
 ./install.sh
 ```
