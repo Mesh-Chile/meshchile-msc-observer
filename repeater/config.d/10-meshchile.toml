@@ -1,0 +1,24 @@
+# MeshChile · preset del broker nacional para meshcoretomqtt
+# Copiar a /etc/mctomqtt/config.d/10-meshchile.toml (lo hace install-mctomqtt.sh).
+# El broker nacional corre el mismo software que LetsMesh (michaelhart/meshcore-mqtt-broker):
+# auth por token Ed25519 firmado con la llave del nodo (aud = hostname del broker).
+# El IATA se define aparte en [general] (config.d/99-user.toml). Los topics por defecto
+# (meshcore/{IATA}/{PUBLIC_KEY}/...) ya calzan con el broker.
+
+[[broker]]
+name = "meshchile"
+enabled = true
+server = "mqtt-msc.meshchile.cl"
+port = 443
+transport = "websockets"
+keepalive = 60
+qos = 0
+retain = true
+
+[broker.tls]
+enabled = true
+verify = true
+
+[broker.auth]
+method = "token"
+audience = "mqtt-msc.meshchile.cl"

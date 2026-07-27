@@ -1,0 +1,24 @@
+# MeshChile · preset LoRa de Chile por CLI (para firmware GENERICO packet-logging)
+# Si flasheaste el firmware Chile ya horneado (prebuilt/), NO necesitas esto: ya
+# trae la radio configurada. Usa esto solo si flasheaste un firmware packet-logging
+# generico (p.ej. del flasher observer.gessaman.com) y quieres dejarlo en Chile.
+#
+# Conecta por USB serial (115200) o por la app companion BLE y pega estos comandos.
+# La consola de un repeater/room-server MeshCore acepta:
+
+# Radio MeshChile: freq 927.875 MHz, BW 62.5 kHz, SF 8, CR 5  (requiere reboot)
+set radio 927.875,62.5,8,5
+
+# (opcional) nombre y clave admin — CAMBIA la clave por defecto
+set name CAMBIA_NOMBRE
+password CAMBIA_CLAVE
+
+# (opcional) potencia TX en dBm segun tu hardware/regulacion (requiere reboot)
+# set tx 22
+
+# (opcional) intervalos de advert
+# set advert.interval 240        # advert zero-hop cada 240 min
+# set flood.advert.interval 6    # advert flood cada 6 h
+
+# aplica los cambios de radio
+reboot

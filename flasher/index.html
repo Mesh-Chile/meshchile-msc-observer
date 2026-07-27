@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flasheador MeshCore · MeshChile</title>
+<meta name="description" content="Flashea tu nodo MeshCore con el firmware observer de MeshChile (preset LoRa Chile + packet-logging) directo desde el navegador.">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="vendor/esp-web-tools/install-button.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">MC</div>
+    <div>
+      <h1>Flasheador MeshCore · MeshChile</h1>
+      <p>Firmware observer con preset LoRa de Chile, listo para flashear</p>
+    </div>
+    <span class="pill" id="ver">v1.16.0</span>
+  </header>
+
+  <div class="note" id="supported">
+    <b>Preset MeshChile horneado:</b> 927.875 MHz · BW 62.5 · SF 8 · CR 5 · route hash 2 bytes,
+    con <b>packet-logging</b> activado. Conecta tu equipo por USB y flashea desde el navegador.
+  </div>
+  <div class="note warn" id="unsupported">
+    ⚠️ Tu navegador no soporta <b>Web Serial</b>. Usa <b>Chrome</b> o <b>Edge</b> de escritorio
+    (no funciona en Firefox, Safari ni móviles). También puedes descargar el <code>.bin</code>/<code>.uf2</code>
+    y flashear con esptool / arrastrando el <code>.uf2</code>.
+  </div>
+
+  <!-- 1. Modelo -->
+  <section class="step">
+    <div class="step-h"><span class="step-n">1</span><h2>Elige el modelo de observer</h2></div>
+    <div class="seg" id="model-seg" role="tablist"></div>
+    <p class="model-desc" id="model-desc"></p>
+  </section>
+
+  <!-- 2. Equipo -->
+  <section class="step">
+    <div class="step-h"><span class="step-n">2</span><h2>Elige tu equipo</h2></div>
+    <div class="grid" id="dev-grid"></div>
+  </section>
+
+  <!-- 3. Rol -->
+  <section class="step">
+    <div class="step-h"><span class="step-n">3</span><h2>Rol del nodo</h2></div>
+    <div class="seg" id="role-seg" role="tablist"></div>
+  </section>
+
+  <!-- 4. Flashear -->
+  <section class="step">
+    <div class="step-h"><span class="step-n">4</span><h2>Flashea</h2></div>
+    <div class="action" id="action"></div>
+    <div id="config-slot"></div>
+  </section>
+
+  <footer>
+    Proyecto <a href="https://meshchile.cl">MeshChile</a> ·
+    Firmware compilado de <a href="https://github.com/meshcore-dev/MeshCore">MeshCore</a> /
+    <a href="https://github.com/agessaman/MeshCore">observer</a> ·
+    Broker nacional <code>mqtt-msc.meshchile.cl</code> · Mapa <a href="https://mapa-msc.meshchile.cl">mapa-msc.meshchile.cl</a>
+  </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
