@@ -1,5 +1,7 @@
 # Propuesta: agregar "Chile" a los presets de región de MeshCore (upstream)
 
+> **Estado:** publicado el 2026-07-26 → https://github.com/meshcore-dev/MeshCore/issues/3041
+
 Borrador de issue para pedirle al proyecto oficial **MeshCore** que agregue **Chile**
 como región seleccionable, con la configuración LoRa que usa MeshChile.
 
