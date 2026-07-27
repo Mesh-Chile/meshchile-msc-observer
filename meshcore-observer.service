@@ -14,7 +14,7 @@ User=__USER__
 SupplementaryGroups=dialout
 WorkingDirectory=__DIR__
 ExecStart=__DIR__/.venv/bin/python __DIR__/packet_capture.py
-Restart=on-failure
+Restart=always
 RestartSec=10
 
 [Install]

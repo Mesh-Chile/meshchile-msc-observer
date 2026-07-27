@@ -64,6 +64,13 @@ python3 -m venv .venv && . .venv/bin/activate
 pip install -U pip && pip install -r requirements.txt
 ```
 
+> **Versión mínima:** `f9733b1` (rama `main`) o posterior. Versiones más antiguas
+> se conectan y publican `/status` pero **no publican `/packets`**, así que tu
+> observer aparece "online" pero el mapa nunca recibe los adverts que oyes por
+> RF. Verifica con `git log -1 --oneline`. Si el commit es viejo,
+> `git fetch && git checkout main && git pull`. El `install.sh` de este repo ya
+> deja la versión correcta.
+
 ### 2. Conecta tu nodo y encuentra su puerto
 
 Usa la **ruta estable** por `by-id` (no `ttyACM0`/`ttyUSB0` directo: cambian de
@@ -187,6 +194,48 @@ Si tienes una cuenta read-only del broker, puedes suscribirte y ver tu feed:
 npm i mqtt
 BROKER_URL=wss://mqtt-msc.meshchile.cl SUB_USER=<usuario> SUB_PASS=<pass> node test-broker.js
 ```
+
+---
+
+## Troubleshooting
+
+### Mi observer dice "MQTT: 1/1" pero no aparece en el mapa
+
+Síntoma: los logs muestran `📦 Captured packet #N ... type 4 ... (MQTT: 1/1)`
+pero ni tu observer ni los nodos que oyes salen en https://mapa-msc.meshchile.cl.
+
+Causa típica: estás corriendo una versión vieja de `meshcore-packet-capture` que
+**publica `/status` pero no `/packets`**. Se detecta porque el broker te ve
+"online" indefinidamente pero el mapa solo recibe pings de presencia y nunca
+adverts RF tuyos. El `(MQTT: 1/1)` del log es del lado cliente y no garantiza
+que el broker recibió un PUBLISH a `/packets`.
+
+Verifica la versión:
+
+```bash
+cd ~/meshcore-packet-capture
+git log -1 --oneline
+```
+
+Si el commit es anterior a `f9733b1` (rama `main`), actualiza:
+
+```bash
+git fetch && git checkout main && git pull
+. .venv/bin/activate && pip install -r requirements.txt
+sudo systemctl restart meshcore-observer
+```
+
+En 1-2 minutos los adverts capturados deberían empezar a llegar al mapa.
+
+### Cómo confirmar desde afuera si tu observer publica packets
+
+Si tienes acceso al panel del broker o a un sub read-only, busca PUBLISH a:
+
+```
+meshcore/<TU_IATA>/<TU_PUBKEY>/packets
+```
+
+Si solo ves `/status` y nunca `/packets`, es el caso de arriba.
 
 ---
 

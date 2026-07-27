@@ -16,10 +16,16 @@ sudo apt-get update -y
 sudo apt-get install -y python3 python3-venv git
 
 say "Programa de captura (meshcore-packet-capture)"
+# Usa la versión actual de 'main'. Las viejas publican /status pero NO /packets,
+# así que el observer sale "online" pero el mapa no recibe adverts.
 if [ ! -d "$PC_DIR" ]; then
   git clone https://github.com/agessaman/meshcore-packet-capture "$PC_DIR"
 else
-  echo "Ya existe en $PC_DIR (lo dejo como está)"
+  echo "Ya existe en $PC_DIR (actualizo a la última de main)"
+  git -C "$PC_DIR" fetch --quiet origin main && \
+    git -C "$PC_DIR" checkout --quiet main && \
+    git -C "$PC_DIR" pull --quiet || \
+    echo "  (no pude actualizar automáticamente; revisa 'git -C $PC_DIR status')"
 fi
 
 say "Entorno Python (venv + dependencias)"
