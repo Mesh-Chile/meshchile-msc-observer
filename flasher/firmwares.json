@@ -1,60 +1,335 @@
 {
-  "version": "v1.16.0-meshchile-07a3ca9",
-  "lora": { "freq": "927.875 MHz", "bw": "62.5 kHz", "sf": "8", "cr": "5" },
+  "default_version": "v1.17.0",
+  "lora": {
+    "freq": "927.875 MHz",
+    "bw": "62.5 kHz",
+    "sf": "8",
+    "cr": "5"
+  },
   "broker": "mqtt-msc.meshchile.cl",
-  "models": [
+  "versions": [
     {
-      "id": "A",
-      "name": "Con Raspberry Pi",
-      "tag": "meshcoretomqtt",
-      "available": true,
-      "desc": "El nodo se conecta por USB a un Raspberry Pi (o mini-PC Linux) que tiene internet y publica al broker con meshcoretomqtt. Sirve cualquier equipo, incluido el RAK4631. El nodo no necesita WiFi.",
-      "devices": [
-        { "id": "heltec_v3", "name": "Heltec V3", "chip": "ESP32-S3", "chipFamily": "ESP32-S3", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/Heltec_v3_repeater-v1.16.0-meshchile-07a3ca9-merged.bin" },
-            "room_server": { "file": "firmware/Heltec_v3_room_server-v1.16.0-meshchile-07a3ca9-merged.bin" } } },
-        { "id": "heltec_v4", "name": "Heltec V4", "chip": "ESP32-S3", "chipFamily": "ESP32-S3", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/heltec_v4_repeater-v1.16.0-meshchile-07a3ca9-merged.bin" },
-            "room_server": { "file": "firmware/heltec_v4_room_server-v1.16.0-meshchile-07a3ca9-merged.bin" } } },
-        { "id": "xiao_s3", "name": "Seeed Xiao S3 WIO", "chip": "ESP32-S3", "chipFamily": "ESP32-S3", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/Xiao_S3_WIO_repeater-v1.16.0-meshchile-07a3ca9-merged.bin" },
-            "room_server": { "file": "firmware/Xiao_S3_WIO_room_server-v1.16.0-meshchile-07a3ca9-merged.bin" } } },
-        { "id": "tbeam", "name": "LilyGo T-Beam SX1262", "chip": "ESP32", "chipFamily": "ESP32", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/Tbeam_SX1262_repeater-v1.16.0-meshchile-07a3ca9-merged.bin" },
-            "room_server": { "file": "firmware/Tbeam_SX1262_room_server-v1.16.0-meshchile-07a3ca9-merged.bin" } } },
-        { "id": "rak4631", "name": "RAK4631", "chip": "nRF52840", "flashable": false,
-          "roles": {
-            "repeater":    { "file": "firmware/RAK_4631_repeater-v1.16.0-meshchile-07a3ca9.uf2" },
-            "room_server": { "file": "firmware/RAK_4631_room_server-v1.16.0-meshchile-07a3ca9.uf2" } } }
+      "id": "v1.17.0",
+      "label": "v1.17.0",
+      "latest": true,
+      "note": "Última versión de MeshCore. Recomendada para nodos nuevos.",
+      "models": [
+        {
+          "id": "A",
+          "name": "Con Raspberry Pi",
+          "tag": "meshcoretomqtt",
+          "available": true,
+          "desc": "El nodo se conecta por USB a un Raspberry Pi (o mini-PC Linux) que tiene internet y publica al broker con meshcoretomqtt. Sirve cualquier equipo, incluido el RAK4631. El nodo no necesita WiFi.",
+          "commit": "727fc05",
+          "devices": [
+            {
+              "id": "heltec_v3",
+              "name": "Heltec V3",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Heltec_v3_repeater-v1.17.0-meshchile-727fc05-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Heltec_v3_room_server-v1.17.0-meshchile-727fc05-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "heltec_v4",
+              "name": "Heltec V4",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/heltec_v4_repeater-v1.17.0-meshchile-727fc05-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/heltec_v4_room_server-v1.17.0-meshchile-727fc05-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "xiao_s3",
+              "name": "Seeed Xiao S3 WIO",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Xiao_S3_WIO_repeater-v1.17.0-meshchile-727fc05-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Xiao_S3_WIO_room_server-v1.17.0-meshchile-727fc05-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "tbeam",
+              "name": "LilyGo T-Beam SX1262",
+              "chip": "ESP32",
+              "chipFamily": "ESP32",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Tbeam_SX1262_repeater-v1.17.0-meshchile-727fc05-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Tbeam_SX1262_room_server-v1.17.0-meshchile-727fc05-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "rak4631",
+              "name": "RAK4631",
+              "chip": "nRF52840",
+              "flashable": false,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/RAK_4631_repeater-v1.17.0-meshchile-727fc05.uf2"
+                },
+                "room_server": {
+                  "file": "firmware/RAK_4631_room_server-v1.17.0-meshchile-727fc05.uf2"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "name": "WiFi nativo (sin Pi)",
+          "tag": "observer-mqtt",
+          "available": true,
+          "desc": "El nodo publica él mismo a MQTT por su propio WiFi, sin Raspberry Pi. Solo ESP32 (Heltec V3, Heltec V4, Xiao S3, T-Beam). Tras flashear, se configura WiFi + broker por consola serial.",
+          "commit": "bb066870",
+          "devices": [
+            {
+              "id": "heltec_v3",
+              "name": "Heltec V3",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Heltec_v3_repeater_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Heltec_v3_room_server_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "heltec_v4",
+              "name": "Heltec V4",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/heltec_v4_repeater_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/heltec_v4_room_server_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "xiao_s3",
+              "name": "Seeed Xiao S3 WIO",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Xiao_S3_WIO_repeater_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Xiao_S3_WIO_room_server_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "tbeam",
+              "name": "LilyGo T-Beam SX1262",
+              "chip": "ESP32",
+              "chipFamily": "ESP32",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Tbeam_SX1262_repeater_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Tbeam_SX1262_room_server_observer_mqtt-v1.17.0-meshchile-bb066870-merged.bin"
+                }
+              }
+            }
+          ]
+        }
       ]
     },
     {
-      "id": "B",
-      "name": "WiFi nativo (sin Pi)",
-      "tag": "observer-mqtt",
-      "available": true,
-      "desc": "El nodo publica él mismo a MQTT por su propio WiFi, sin Raspberry Pi. Solo ESP32 (Heltec V3, Xiao S3, T-Beam). Tras flashear, se configura WiFi + broker por consola serial.",
-      "devices": [
-        { "id": "heltec_v3", "name": "Heltec V3", "chip": "ESP32-S3", "chipFamily": "ESP32-S3", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/Heltec_v3_repeater_observer_mqtt-meshchile-df07083-merged.bin" },
-            "room_server": { "file": "firmware/Heltec_v3_room_server_observer_mqtt-meshchile-df07083-merged.bin" } } },
-        { "id": "heltec_v4", "name": "Heltec V4", "chip": "ESP32-S3", "chipFamily": "ESP32-S3", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/heltec_v4_repeater_observer_mqtt-meshchile-df07083-merged.bin" },
-            "room_server": { "file": "firmware/heltec_v4_room_server_observer_mqtt-meshchile-df07083-merged.bin" } } },
-        { "id": "xiao_s3", "name": "Seeed Xiao S3 WIO", "chip": "ESP32-S3", "chipFamily": "ESP32-S3", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/Xiao_S3_WIO_repeater_observer_mqtt-meshchile-df07083-merged.bin" },
-            "room_server": { "file": "firmware/Xiao_S3_WIO_room_server_observer_mqtt-meshchile-df07083-merged.bin" } } },
-        { "id": "tbeam", "name": "LilyGo T-Beam SX1262", "chip": "ESP32", "chipFamily": "ESP32", "flashable": true,
-          "roles": {
-            "repeater":    { "file": "firmware/Tbeam_SX1262_repeater_observer_mqtt-meshchile-df07083-merged.bin" },
-            "room_server": { "file": "firmware/Tbeam_SX1262_room_server_observer_mqtt-meshchile-df07083-merged.bin" } } }
+      "id": "v1.16.0",
+      "label": "v1.16.0",
+      "latest": false,
+      "note": "Versión anterior, la que corre buena parte de la red chilena. Sigue disponible por si prefieres no actualizar.",
+      "models": [
+        {
+          "id": "A",
+          "name": "Con Raspberry Pi",
+          "tag": "meshcoretomqtt",
+          "available": true,
+          "desc": "El nodo se conecta por USB a un Raspberry Pi (o mini-PC Linux) que tiene internet y publica al broker con meshcoretomqtt. Sirve cualquier equipo, incluido el RAK4631. El nodo no necesita WiFi.",
+          "commit": "07a3ca9",
+          "devices": [
+            {
+              "id": "heltec_v3",
+              "name": "Heltec V3",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Heltec_v3_repeater-v1.16.0-meshchile-07a3ca9-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Heltec_v3_room_server-v1.16.0-meshchile-07a3ca9-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "heltec_v4",
+              "name": "Heltec V4",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/heltec_v4_repeater-v1.16.0-meshchile-07a3ca9-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/heltec_v4_room_server-v1.16.0-meshchile-07a3ca9-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "xiao_s3",
+              "name": "Seeed Xiao S3 WIO",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Xiao_S3_WIO_repeater-v1.16.0-meshchile-07a3ca9-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Xiao_S3_WIO_room_server-v1.16.0-meshchile-07a3ca9-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "tbeam",
+              "name": "LilyGo T-Beam SX1262",
+              "chip": "ESP32",
+              "chipFamily": "ESP32",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Tbeam_SX1262_repeater-v1.16.0-meshchile-07a3ca9-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Tbeam_SX1262_room_server-v1.16.0-meshchile-07a3ca9-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "rak4631",
+              "name": "RAK4631",
+              "chip": "nRF52840",
+              "flashable": false,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/RAK_4631_repeater-v1.16.0-meshchile-07a3ca9.uf2"
+                },
+                "room_server": {
+                  "file": "firmware/RAK_4631_room_server-v1.16.0-meshchile-07a3ca9.uf2"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "name": "WiFi nativo (sin Pi)",
+          "tag": "observer-mqtt",
+          "available": true,
+          "desc": "El nodo publica él mismo a MQTT por su propio WiFi, sin Raspberry Pi. Solo ESP32 (Heltec V3, Heltec V4, Xiao S3, T-Beam). Tras flashear, se configura WiFi + broker por consola serial.",
+          "commit": "df07083",
+          "devices": [
+            {
+              "id": "heltec_v3",
+              "name": "Heltec V3",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Heltec_v3_repeater_observer_mqtt-meshchile-df07083-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Heltec_v3_room_server_observer_mqtt-meshchile-df07083-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "heltec_v4",
+              "name": "Heltec V4",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/heltec_v4_repeater_observer_mqtt-meshchile-df07083-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/heltec_v4_room_server_observer_mqtt-meshchile-df07083-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "xiao_s3",
+              "name": "Seeed Xiao S3 WIO",
+              "chip": "ESP32-S3",
+              "chipFamily": "ESP32-S3",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Xiao_S3_WIO_repeater_observer_mqtt-meshchile-df07083-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Xiao_S3_WIO_room_server_observer_mqtt-meshchile-df07083-merged.bin"
+                }
+              }
+            },
+            {
+              "id": "tbeam",
+              "name": "LilyGo T-Beam SX1262",
+              "chip": "ESP32",
+              "chipFamily": "ESP32",
+              "flashable": true,
+              "roles": {
+                "repeater": {
+                  "file": "firmware/Tbeam_SX1262_repeater_observer_mqtt-meshchile-df07083-merged.bin"
+                },
+                "room_server": {
+                  "file": "firmware/Tbeam_SX1262_room_server_observer_mqtt-meshchile-df07083-merged.bin"
+                }
+              }
+            }
+          ]
+        }
       ]
     }
   ]

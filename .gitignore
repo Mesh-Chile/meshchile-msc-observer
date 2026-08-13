@@ -12,9 +12,11 @@ __pycache__/
 
 # Artefactos de build de firmware (se regeneran con los scripts)
 .build/
+.build-observer/
 .pio/
 node_modules/
 *.tgz
+*.partsig
 
 # Firmwares binarios: se distribuyen por GitHub Releases (ver flasher/fetch-firmware.sh).
 # Los SHA256SUMS.txt SÍ se versionan (documentan el contenido del release).
@@ -22,4 +24,5 @@ flasher/firmware/*.bin
 flasher/firmware/*.uf2
 repeater/firmware/prebuilt/*.bin
 repeater/firmware/prebuilt/*.uf2
+repeater/firmware/prebuilt/*.zip
 repeater/firmware/prebuilt-observer/*.bin

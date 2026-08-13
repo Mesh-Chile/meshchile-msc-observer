@@ -26,6 +26,12 @@ header h1{font-size:1.32rem;margin:0;letter-spacing:-.01em}
 header p{margin:2px 0 0;color:var(--mut);font-size:.9rem}
 .pill{margin-left:auto;font-family:var(--fm);font-size:.72rem;color:var(--acc);
   background:var(--accsoft);border:1px solid var(--line);padding:5px 10px;border-radius:999px;white-space:nowrap}
+.sel-pill{display:inline-flex;align-items:center;gap:7px;cursor:pointer;padding:4px 6px 4px 12px}
+.sel-pill select{appearance:none;background:var(--bg2);color:var(--fg);border:1px solid var(--line);
+  border-radius:999px;font:inherit;font-size:.75rem;padding:4px 26px 4px 10px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);
+  background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.sel-pill select:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
 /* browser warning */
 .note{border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:14px 16px;margin:0 0 20px;font-size:.9rem;color:var(--mut)}

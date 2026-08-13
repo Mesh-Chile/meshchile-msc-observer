@@ -7,8 +7,10 @@ vía [ESP Web Tools](https://esphome.github.io/esp-web-tools/) (vendoreado, sin 
 
 ## Flujo
 
+0. **Versión** del firmware (selector arriba a la derecha): `v1.17.0` (última, por defecto)
+   o `v1.16.0` (anterior, la que corre buena parte de la red). Deep-link: `?v=v1.16.0`.
 1. Modelo: **A** (con Raspberry Pi / meshcoretomqtt) o **B** (WiFi nativo, sin Pi).
-2. Equipo: Heltec V3, Xiao S3 WIO, T-Beam SX1262 (ESP32, flasheables por web) o RAK4631 (solo Modelo A, `.uf2` por arrastre).
+2. Equipo: Heltec V3, Heltec V4, Xiao S3 WIO, T-Beam SX1262 (ESP32, flasheables por web) o RAK4631 (solo Modelo A, `.uf2` por arrastre).
 3. Rol: repeater / room server.
 4. Flashear (Web Serial) o descargar el binario, + instrucciones de configuración post-flasheo.
 
@@ -17,7 +19,8 @@ vía [ESP Web Tools](https://esphome.github.io/esp-web-tools/) (vendoreado, sin 
 ```
 flasher/
 ├── index.html · style.css · app.js       # la página
-├── firmwares.json                        # metadata que arma la UI (equipos, roles, archivos)
+├── firmwares.json                        # metadata que arma la UI (versiones, equipos, roles, archivos)
+├── gen-firmwares-json.py                 # regenera firmwares.json escaneando firmware/
 ├── firmware/                             # binarios (merged .bin ESP32 + .uf2 RAK) + SHA256SUMS
 └── vendor/esp-web-tools/                 # ESP Web Tools vendoreado (self-contained, sin CDN)
 ```
@@ -42,20 +45,39 @@ secure context; `localhost` también vale para pruebas).
   `flasher-msc.meshchile.cl`.
 - **Prueba local:** `cd flasher && python3 -m http.server 8899` → http://127.0.0.1:8899
 
-## Regenerar los binarios
+## Agregar una versión nueva de firmware
 
-Los `.bin`/`.uf2` se generan con los scripts del repo:
-- Modelo A: `repeater/firmware/build-chile-firmware.sh`
-- Modelo B (observer WiFi): fork `agessaman/MeshCore` branch `observer-firmware`, envs
-  `*_observer_mqtt`, con la frecuencia Chile horneada (sed `LORA_FREQ=927.875`).
+Las versiones **conviven**: el selector las ofrece todas y nunca se borra la anterior.
 
-Tras compilar, copia los `-merged.bin` (ESP32) y `.uf2` (RAK) a `flasher/firmware/` y
-actualiza `firmwares.json` (nombres de archivo y `chipFamily`). Regenera `SHA256SUMS.txt`
-con `sha256sum * > SHA256SUMS.txt`.
+```bash
+# 1. compilar las dos variantes (Docker + PlatformIO)
+cd ../repeater/firmware
+REF=repeater-v1.18.0 FW_VERSION=v1.18.0-meshchile ./build-chile-firmware.sh
+FW_VERSION=v1.18.0-meshchile ./build-chile-firmware.sh --observer   # fork observer
+
+# 2. copiar los flasheables al flasher y regenerar checksums
+cp prebuilt/*v1.18.0*-merged.bin prebuilt/*v1.18.0*.uf2 \
+   prebuilt-observer/*v1.18.0*-merged.bin ../../flasher/firmware/
+(cd ../../flasher/firmware && sha256sum $(ls *.bin *.uf2 | sort) > SHA256SUMS.txt)
+
+# 3. agregar la versión a VERSIONS en gen-firmwares-json.py y regenerar
+cd ../../flasher && ./gen-firmwares-json.py
+
+# 4. publicar el release con los binarios y desplegar
+gh release create firmware-v1.18.0 -R Mesh-Chile/meshchile-msc-observer \
+  ../repeater/firmware/prebuilt/*v1.18.0* ../repeater/firmware/prebuilt-observer/*v1.18.0*
+```
+
+`gen-firmwares-json.py --check` falla si el JSON quedó desincronizado de `firmware/`.
 
 ## Notas
 
 - **Solo Chrome/Edge de escritorio** soportan Web Serial. La página detecta y avisa si no.
 - ESP32 se flashea el `-merged.bin` a `0x0` (wipe completo). El RAK4631 (nRF52) no usa
   Web Serial: se arrastra el `.uf2` al bootloader USB.
-- Versiones: Modelo A = MeshCore `v1.16.0-07a3ca9`; Modelo B = fork observer `df07083`.
+- Versiones publicadas:
+
+  | Versión | Modelo A (upstream MeshCore) | Modelo B (fork observer) |
+  |---|---|---|
+  | **v1.17.0** (última) | tag `repeater-v1.17.0` · `727fc05` | rama `observer-firmware` · `bb066870` |
+  | v1.16.0 | tag `repeater-v1.16.0` · `07a3ca9` | rama `observer-firmware` · `df07083` |

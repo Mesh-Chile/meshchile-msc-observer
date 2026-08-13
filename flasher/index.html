@@ -16,8 +16,12 @@
       <h1>Flasheador MeshCore · MeshChile</h1>
       <p>Firmware observer con preset LoRa de Chile, listo para flashear</p>
     </div>
-    <span class="pill" id="ver">v1.16.0</span>
+    <label class="pill sel-pill" for="ver-sel">Versión
+      <select id="ver-sel" aria-label="Versión del firmware"></select>
+    </label>
   </header>
+
+  <div class="note warn" id="oldver" style="display:none"></div>
 
   <div class="note" id="supported">
     <b>Preset MeshChile horneado:</b> 927.875 MHz · BW 62.5 · SF 8 · CR 5 · route hash 2 bytes,

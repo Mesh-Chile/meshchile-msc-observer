@@ -3,19 +3,24 @@
 # flasher. Los binarios NO se versionan en el repo (van por Releases); la página y
 # firmwares.json sí. Verifica contra los SHA256SUMS.txt versionados.
 #
-# Uso:  ./fetch-firmware.sh            (usa el tag por defecto)
-#       TAG=firmware-v1.16.0 ./fetch-firmware.sh
+# El flasher ofrece VARIAS versiones a la vez (ver firmwares.json), asi que baja
+# todos los releases listados en TAGS.
+#
+# Uso:  ./fetch-firmware.sh                        (todas las versiones publicadas)
+#       TAGS=firmware-v1.17.0 ./fetch-firmware.sh  (solo una)
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="${REPO:-Mesh-Chile/meshchile-msc-observer}"
-TAG="${TAG:-firmware-v1.16.0}"
+TAGS="${TAGS:-${TAG:-firmware-v1.16.0 firmware-v1.17.0}}"
 DEST="$HERE/firmware"
 mkdir -p "$DEST"
 
-echo "==> Descargando firmwares del release $TAG ($REPO) a firmware/"
-# El flasher usa los merged (.bin ESP32) y los .uf2 (RAK).
-gh release download "$TAG" -R "$REPO" -D "$DEST" -p '*-merged.bin' -p '*.uf2' --clobber
+for tag in $TAGS; do
+  echo "==> Descargando firmwares del release $tag ($REPO) a firmware/"
+  # El flasher usa los merged (.bin ESP32) y los .uf2 (RAK).
+  gh release download "$tag" -R "$REPO" -D "$DEST" -p '*-merged.bin' -p '*.uf2' --clobber
+done
 
 echo "==> Verificando checksums"
 if [ -f "$DEST/SHA256SUMS.txt" ]; then

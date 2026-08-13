@@ -1,9 +1,16 @@
 # Firmware MeshChile — Repeater / Room Server (con packet-logging)
 
-Firmware **MeshCore v1.16.0** (commit `07a3ca9`, la versión que corre la red chilena)
-compilado con el **preset LoRa de Chile horneado** y **packet-logging activado**, para
-que el nodo publique a MQTT lo que oye. Un flash y listo: no hay que tocar la radio por
-CLI.
+Firmware **MeshCore** compilado con el **preset LoRa de Chile horneado** y
+**packet-logging activado**, para que el nodo publique a MQTT lo que oye. Un flash y
+listo: no hay que tocar la radio por CLI.
+
+Se mantienen publicadas **dos versiones** (el flasher web deja elegir; no se borra la
+anterior):
+
+| Versión | Modelo A (upstream, con Raspberry Pi) | Modelo B (fork observer, WiFi nativo) |
+|---|---|---|
+| **v1.17.0** (última) | tag `repeater-v1.17.0` · `727fc05` | rama `observer-firmware` · `bb066870` |
+| v1.16.0 | tag `repeater-v1.16.0` · `07a3ca9` | rama `observer-firmware` · `df07083` |
 
 ## Preset horneado
 
@@ -19,14 +26,16 @@ CLI.
 ## Binarios listos
 
 > Los `.bin`/`.uf2` **no se versionan en git**: se distribuyen por **GitHub Releases**
-> (tag `firmware-v1.16.0`). Descárgalos del release, o compílalos con
-> `build-chile-firmware.sh`. Los `SHA256SUMS.txt` versionados documentan su contenido.
+> (un tag por versión: `firmware-v1.16.0`, `firmware-v1.17.0`). Descárgalos del release,
+> o compílalos con `build-chile-firmware.sh`. Los `SHA256SUMS.txt` versionados documentan
+> su contenido.
 
-Compilados para 4 equipos × 2 roles (repeater / room server):
+Compilados para 5 equipos × 2 roles (repeater / room server):
 
 - **Heltec V3** (ESP32-S3) → `.bin` + `-merged.bin`
+- **Heltec V4** (ESP32-S3) → `.bin` + `-merged.bin`
 - **Seeed Xiao S3 WIO** (ESP32-S3 + Wio-SX1262) → `.bin` + `-merged.bin`
-- **RAK4631** (nRF52840) → `.uf2`
+- **RAK4631** (nRF52840) → `.uf2` (solo Modelo A: no lleva WiFi)
 - **LilyGo T-Beam SX1262** (ESP32) → `.bin` + `-merged.bin`
 
 > ¿Falta tu equipo? Compílalo con `./build-chile-firmware.sh <target>` (ver abajo).
@@ -55,11 +64,18 @@ password <tu-clave>
 ## Compilar tú mismo
 
 ```bash
-./build-chile-firmware.sh                      # set por defecto (8 firmwares)
+./build-chile-firmware.sh                      # Modelo A, set por defecto (10 firmwares) -> prebuilt/
+./build-chile-firmware.sh --observer           # Modelo B (fork observer WiFi)  -> prebuilt-observer/
 ./build-chile-firmware.sh Heltec_v3_repeater   # un target puntual
+
+# otra version (tag upstream + etiqueta que va en el nombre del archivo)
+REF=repeater-v1.16.0 FW_VERSION=v1.16.0-meshchile ./build-chile-firmware.sh
 ```
-Requiere Docker (usa PlatformIO en un contenedor, clona MeshCore en `v1.16.0` y
-hornea los flags de Chile). Salida en `prebuilt/`.
+Requiere Docker (usa PlatformIO en un contenedor, clona MeshCore en el `REF` pedido y
+hornea los flags de Chile). Por defecto compila **v1.17.0**.
+
+> Gotcha: el `build.sh` del repo hace `rm -rf out` en **cada** invocación, por eso el
+> script copia los artefactos a la salida después de cada target.
 
 ## Alternativa: firmware genérico + config por CLI
 

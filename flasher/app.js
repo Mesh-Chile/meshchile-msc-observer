@@ -8,23 +8,56 @@
   $("#supported").classList.toggle("hide", !supported);
   $("#unsupported").style.display = supported ? "none" : "block";
 
-  let DATA, state = { model: null, device: null, role: "repeater" };
+  let DATA, state = { version: null, model: null, device: null, role: "repeater" };
   let lastBlob = null;
 
   fetch("firmwares.json").then((r) => r.json()).then((d) => {
     DATA = d;
-    $("#ver").textContent = d.version.split("-")[0];
-    renderModels();
-    // seleccion inicial: primer modelo disponible
-    const first = d.models.find((m) => m.available) || d.models[0];
-    selectModel(first.id);
+    renderVersions();
+    // deep-link ?v=v1.16.0 para compartir una version puntual
+    const want = new URLSearchParams(location.search).get("v");
+    const pick = d.versions.find((v) => v.id === want);
+    selectVersion(pick ? pick.id : (d.default_version || d.versions[0].id));
   }).catch((e) => {
     $("#action").innerHTML = '<p class="sel">No pude cargar firmwares.json (' + e.message + ").</p>";
   });
 
+  function renderVersions() {
+    const sel = $("#ver-sel"); sel.innerHTML = "";
+    DATA.versions.forEach((v) => {
+      const o = el("option", null, v.label + (v.latest ? " · última" : ""));
+      o.value = v.id;
+      sel.appendChild(o);
+    });
+    sel.onchange = () => selectVersion(sel.value);
+  }
+
+  function selectVersion(id) {
+    state.version = id;
+    const v = version();
+    $("#ver-sel").value = id;
+    const url = new URL(location.href);
+    if (v.latest) url.searchParams.delete("v"); else url.searchParams.set("v", v.id);
+    history.replaceState(null, "", url);
+    const warn = $("#oldver");
+    warn.style.display = v.latest ? "none" : "block";
+    if (!v.latest) {
+      const latest = DATA.versions.find((x) => x.latest);
+      warn.innerHTML = "⚠️ Estás en <b>" + v.label + "</b>" + (v.note ? " — " + v.note : "") +
+        (latest ? ' Cambia arriba a <b>' + latest.label + "</b> para la última." : "");
+    }
+    renderModels();
+    // mantener el modelo elegido si existe en esta version, si no el primero disponible
+    const keep = models().find((m) => m.id === state.model && m.available);
+    selectModel((keep || models().find((m) => m.available) || models()[0]).id);
+  }
+
+  function version() { return DATA.versions.find((v) => v.id === state.version) || DATA.versions[0]; }
+  function models() { return version().models; }
+
   function renderModels() {
     const seg = $("#model-seg"); seg.innerHTML = "";
-    DATA.models.forEach((m) => {
+    models().forEach((m) => {
       const b = el("button", null, m.name + (m.available ? "" : " ·"));
       b.setAttribute("role", "tab");
       b.onclick = () => selectModel(m.id);
@@ -44,7 +77,7 @@
     renderDevices();
   }
 
-  function model() { return DATA.models.find((m) => m.id === state.model); }
+  function model() { return models().find((m) => m.id === state.model); }
 
   function renderDevices() {
     const g = $("#dev-grid"); g.innerHTML = "";
@@ -95,8 +128,10 @@
     const roleLabel = ROLES[state.role];
     const file = dev.roles[state.role].file;
 
+    const v = version();
     a.appendChild(el("p", "sel", "Vas a flashear <b>" + dev.name + "</b> · <b>" + roleLabel +
-      "</b> · <b>" + m.name + "</b>"));
+      "</b> · <b>" + m.name + "</b> · <b>" + v.label + "</b>" +
+      (m.commit ? ' <span class="hint">(' + m.commit + ")</span>" : "")));
 
     if (dev.flashable) {
       if (!supported) {
@@ -107,7 +142,7 @@
         const abs = new URL(file, location.href).href;
         const manifest = {
           name: "MeshChile " + dev.name + " " + roleLabel,
-          version: DATA.version,
+          version: v.label + "-meshchile" + (m.commit ? "-" + m.commit : ""),
           new_install_prompt_erase: true,
           builds: [{ chipFamily: dev.chipFamily, parts: [{ path: abs, offset: 0 }] }]
         };
