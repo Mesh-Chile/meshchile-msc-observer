@@ -19,6 +19,7 @@ vía [ESP Web Tools](https://esphome.github.io/esp-web-tools/) (vendoreado, sin 
 ```
 flasher/
 ├── index.html · style.css · app.js       # la página
+├── nginx.conf                            # config del hosting (Cache-Control; ver "Hostear")
 ├── firmwares.json                        # metadata que arma la UI (versiones, equipos, roles, archivos)
 ├── gen-firmwares-json.py                 # regenera firmwares.json escaneando firmware/
 ├── firmware/                             # binarios (merged .bin ESP32 + .uf2 RAK) + SHA256SUMS
@@ -41,8 +42,14 @@ Es estático — cualquier servidor de archivos sirve. Necesita **HTTPS** (Web S
 secure context; `localhost` también vale para pruebas).
 
 - **GitHub Pages** (como flasher.meshcore.io): publica esta carpeta.
-- **Pangolin/Traefik** (nodo4): un contenedor nginx/caddy sirviendo `flasher/` en, p.ej.,
-  `flasher-msc.meshchile.cl`.
+- **Pangolin/Traefik** (nodo4): un contenedor nginx sirviendo `flasher/` en
+  `flasher-msc.meshchile.cl`, con `nginx.conf` montado en
+  `/etc/nginx/conf.d/default.conf`.
+
+  > Monta **siempre** el `nginx.conf`: sin él nginx no manda `Cache-Control`, el
+  > navegador cachea `app.js`/`firmwares.json` por heurística y al publicar una
+  > versión nueva la gente sigue viendo la anterior. La config revalida la página en
+  > cada carga y cachea los binarios para siempre (llevan versión+commit en el nombre).
 - **Prueba local:** `cd flasher && python3 -m http.server 8899` → http://127.0.0.1:8899
 
 ## Agregar una versión nueva de firmware

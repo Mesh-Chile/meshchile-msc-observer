@@ -11,7 +11,9 @@
   let DATA, state = { version: null, model: null, device: null, role: "repeater" };
   let lastBlob = null;
 
-  fetch("firmwares.json").then((r) => r.json()).then((d) => {
+  // cache: no-cache => revalida siempre (si no, al publicar una version nueva el
+  // navegador se queda con el JSON viejo y la pagina no ofrece los firmwares nuevos).
+  fetch("firmwares.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => {
     DATA = d;
     renderVersions();
     // deep-link ?v=v1.16.0 para compartir una version puntual
