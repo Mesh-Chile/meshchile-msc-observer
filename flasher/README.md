@@ -7,8 +7,8 @@ vía [ESP Web Tools](https://esphome.github.io/esp-web-tools/) (vendoreado, sin 
 
 ## Flujo
 
-0. **Versión** del firmware (selector arriba a la derecha): `v1.17.0` (última, por defecto)
-   o `v1.16.0` (anterior, la que corre buena parte de la red). Deep-link: `?v=v1.16.0`.
+0. **Versión** del firmware (selector arriba a la derecha): `v1.17.1` (última, por defecto),
+   `v1.17.0` o `v1.16.0` (la que corre buena parte de la red). Deep-link: `?v=v1.16.0`.
 1. Modelo: **A** (con Raspberry Pi / meshcoretomqtt) o **B** (WiFi nativo, sin Pi).
 2. Equipo: Heltec V3, Heltec V4, Xiao S3 WIO, T-Beam SX1262 (ESP32, flasheables por web) o RAK4631 (solo Modelo A, `.uf2` por arrastre).
 3. Rol: repeater / room server.
@@ -86,5 +86,6 @@ gh release create firmware-v1.18.0 -R Mesh-Chile/meshchile-msc-observer \
 
   | Versión | Modelo A (upstream MeshCore) | Modelo B (fork observer) |
   |---|---|---|
-  | **v1.17.0** (última) | tag `repeater-v1.17.0` · `727fc05` | rama `observer-firmware` · `bb066870` |
+  | **v1.17.1** (última) | tag `repeater-v1.17.1` · `d929643` | rama `observer-firmware` · `8998409f` |
+| v1.17.0 | tag `repeater-v1.17.0` · `727fc05` | rama `observer-firmware` · `bb066870` |
   | v1.16.0 | tag `repeater-v1.16.0` · `07a3ca9` | rama `observer-firmware` · `df07083` |

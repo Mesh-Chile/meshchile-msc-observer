@@ -50,8 +50,10 @@ MODELS = {
 
 # Versión -> notas para la UI. La primera de la lista es la recomendada (latest).
 VERSIONS = [
-    {"id": "v1.17.0", "label": "v1.17.0", "latest": True,
+    {"id": "v1.17.1", "label": "v1.17.1", "latest": True,
      "note": "Última versión de MeshCore. Recomendada para nodos nuevos."},
+    {"id": "v1.17.0", "label": "v1.17.0", "latest": False,
+     "note": "Parche anterior de la serie 1.17. La 1.17.1 la reemplaza; queda disponible por si ya tenías nodos con esta."},
     {"id": "v1.16.0", "label": "v1.16.0", "latest": False,
      "note": "Versión anterior, la que corre buena parte de la red chilena. Sigue disponible por si prefieres no actualizar."},
 ]

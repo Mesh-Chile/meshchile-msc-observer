@@ -7,12 +7,12 @@
 # todos los releases listados en TAGS.
 #
 # Uso:  ./fetch-firmware.sh                        (todas las versiones publicadas)
-#       TAGS=firmware-v1.17.0 ./fetch-firmware.sh  (solo una)
+#       TAGS=firmware-v1.17.1 ./fetch-firmware.sh  (solo una)
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="${REPO:-Mesh-Chile/meshchile-msc-observer}"
-TAGS="${TAGS:-${TAG:-firmware-v1.16.0 firmware-v1.17.0}}"
+TAGS="${TAGS:-${TAG:-firmware-v1.16.0 firmware-v1.17.0 firmware-v1.17.1}}"
 DEST="$HERE/firmware"
 mkdir -p "$DEST"
 

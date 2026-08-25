@@ -4,12 +4,13 @@ Firmware **MeshCore** compilado con el **preset LoRa de Chile horneado** y
 **packet-logging activado**, para que el nodo publique a MQTT lo que oye. Un flash y
 listo: no hay que tocar la radio por CLI.
 
-Se mantienen publicadas **dos versiones** (el flasher web deja elegir; no se borra la
-anterior):
+Se mantienen publicadas **tres versiones** (el flasher web deja elegir; no se borra
+ninguna anterior):
 
 | Versión | Modelo A (upstream, con Raspberry Pi) | Modelo B (fork observer, WiFi nativo) |
 |---|---|---|
-| **v1.17.0** (última) | tag `repeater-v1.17.0` · `727fc05` | rama `observer-firmware` · `bb066870` |
+| **v1.17.1** (última) | tag `repeater-v1.17.1` · `d929643` | rama `observer-firmware` · `8998409f` |
+| v1.17.0 | tag `repeater-v1.17.0` · `727fc05` | rama `observer-firmware` · `bb066870` |
 | v1.16.0 | tag `repeater-v1.16.0` · `07a3ca9` | rama `observer-firmware` · `df07083` |
 
 ## Preset horneado
@@ -26,7 +27,7 @@ anterior):
 ## Binarios listos
 
 > Los `.bin`/`.uf2` **no se versionan en git**: se distribuyen por **GitHub Releases**
-> (un tag por versión: `firmware-v1.16.0`, `firmware-v1.17.0`). Descárgalos del release,
+> (un tag por versión: `firmware-v1.16.0`, `firmware-v1.17.0`, `firmware-v1.17.1`). Descárgalos del release,
 > o compílalos con `build-chile-firmware.sh`. Los `SHA256SUMS.txt` versionados documentan
 > su contenido.
 
@@ -72,7 +73,7 @@ password <tu-clave>
 REF=repeater-v1.16.0 FW_VERSION=v1.16.0-meshchile ./build-chile-firmware.sh
 ```
 Requiere Docker (usa PlatformIO en un contenedor, clona MeshCore en el `REF` pedido y
-hornea los flags de Chile). Por defecto compila **v1.17.0**.
+hornea los flags de Chile). Por defecto compila **v1.17.1**.
 
 > Gotcha: el `build.sh` del repo hace `rm -rf out` en **cada** invocación, por eso el
 > script copia los artefactos a la salida después de cada target.

@@ -22,7 +22,7 @@
 #
 # Requiere Docker. Ver la lista completa de targets con:
 #   docker run --rm python:3.12-bookworm bash -c 'pip -q install platformio; \
-#     git clone --depth 1 -b repeater-v1.17.0 https://github.com/meshcore-dev/MeshCore m; \
+#     git clone --depth 1 -b repeater-v1.17.1 https://github.com/meshcore-dev/MeshCore m; \
 #     cd m; pio project config | grep env: | sed s/env://'
 set -euo pipefail
 
@@ -35,7 +35,7 @@ if [ "$MODE" = "B" ]; then
   # Modelo B — uplink WiFi nativo (fork observer). Solo ESP32 (el RAK4631 no lleva WiFi).
   REPO_URL="${REPO_URL:-https://github.com/agessaman/MeshCore}"
   REF="${REF:-observer-firmware}"
-  FW_VERSION="${FW_VERSION:-v1.17.0-meshchile}"
+  FW_VERSION="${FW_VERSION:-v1.17.1-meshchile}"
   OUT="${OUT:-$HERE/prebuilt-observer}"
   WORK="${WORK:-$HERE/.build-observer}"
   DEFAULT_TARGETS="Heltec_v3_repeater_observer_mqtt Heltec_v3_room_server_observer_mqtt \
@@ -45,8 +45,8 @@ Tbeam_SX1262_repeater_observer_mqtt Tbeam_SX1262_room_server_observer_mqtt"
 else
   # Modelo A — nodo + Raspberry Pi (meshcoretomqtt). Incluye el RAK4631 (.uf2).
   REPO_URL="${REPO_URL:-https://github.com/meshcore-dev/MeshCore}"
-  REF="${REF:-repeater-v1.17.0}"          # commit 727fc05
-  FW_VERSION="${FW_VERSION:-v1.17.0-meshchile}"
+  REF="${REF:-repeater-v1.17.1}"          # commit d929643
+  FW_VERSION="${FW_VERSION:-v1.17.1-meshchile}"
   OUT="${OUT:-$HERE/prebuilt}"
   WORK="${WORK:-$HERE/.build}"
   DEFAULT_TARGETS="Heltec_v3_repeater Heltec_v3_room_server \
